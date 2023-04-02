@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace GraphicsEditor.ViewModels.Pages
-{   
+{
     public class MenuPathViewModel : ViewModelBase
     {
         private string name;
@@ -18,6 +18,10 @@ namespace GraphicsEditor.ViewModels.Pages
         private int fillNum;
         private ObservableCollection<SolidColorBrush> colors;
         private double thicknessLine;
+        private string rotate = "";
+        private string scale = "";
+        private string skew = "";
+        private string center = "";
 
         public MenuPathViewModel()
         {
@@ -36,17 +40,11 @@ namespace GraphicsEditor.ViewModels.Pages
 
         public void SetIndexOfColor(SolidColorBrush color)
         {
-            for (int i = 0; i < Colors.Count; i++)
-            {
-                if (Colors[i].Color == color.Color) { StrokeNum = i; break; }
-            }
+            StrokeNum = Colors.IndexOf(color);
         }
         public void SetIndexOfColorFill(SolidColorBrush color)
         {
-            for (int i = 0; i < Colors.Count; i++)
-            {
-                if (Colors[i].Color == color.Color) { FillNum = i; break; }
-            }
+            FillNum = Colors.IndexOf(color);
         }
 
         public string Commands
@@ -79,6 +77,26 @@ namespace GraphicsEditor.ViewModels.Pages
         {
             get => colors;
             set => this.RaiseAndSetIfChanged(ref colors, value);
+        }
+        public string Rotate
+        {
+            get => rotate;
+            set => this.RaiseAndSetIfChanged(ref rotate, value);
+        }
+        public string Scale
+        {
+            get => scale;
+            set => this.RaiseAndSetIfChanged(ref scale, value);
+        }
+        public string Skew
+        {
+            get => skew;
+            set => this.RaiseAndSetIfChanged(ref skew, value);
+        }
+        public string Center
+        {
+            get => center;
+            set => this.RaiseAndSetIfChanged(ref center, value);
         }
     }
 }

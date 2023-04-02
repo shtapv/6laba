@@ -46,5 +46,32 @@ namespace GraphicsEditor.Models
             string[] s = str.Split(",");
             return new Thickness(double.Parse(s[0]), double.Parse(s[1]));
         }
+        public static TransformGroup MakeTransform(Figures fig)
+        {
+            TransformGroup group = new TransformGroup();
+            if (fig.Rotate != "")
+            {
+                if (fig.Center != "")
+                {
+                    string[] s = fig.Center.Split(" ");
+                    group.Children.Add(new RotateTransform(double.Parse(fig.Rotate), double.Parse(s[0]), double.Parse(s[1])));
+                }
+                else
+                {
+                    group.Children.Add(new RotateTransform(double.Parse(fig.Rotate)));
+                }
+            }
+            if (fig.Scale != "")
+            {
+                string[] s = fig.Scale.Split(" ");
+                group.Children.Add(new ScaleTransform(double.Parse(s[0]), double.Parse(s[1])));
+            }
+            if (fig.Skew != "")
+            {
+                string[] s = fig.Skew.Split(" ");
+                group.Children.Add(new SkewTransform(double.Parse(s[0]), double.Parse(s[1])));
+            }
+            return group;
+        }
     }
 }

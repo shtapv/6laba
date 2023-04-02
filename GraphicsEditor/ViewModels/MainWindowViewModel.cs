@@ -1,8 +1,8 @@
 using Avalonia.Controls.Shapes;
 using Avalonia.Media;
 using DynamicData;
-using GraphicsEditor.ViewModels.Pages;
 using GraphicsEditor.Models;
+using GraphicsEditor.ViewModels.Pages;
 using ReactiveUI;
 using System;
 using System.Collections.ObjectModel;
@@ -36,7 +36,7 @@ namespace GraphicsEditor.ViewModels
             figureViews[4] = new MenuEllipseViewModel();
             figureViews[5] = new MenuPathViewModel();
             FigureIndex = 0;
-            ClearParam = ReactiveCommand.Create(() => {
+            ClearParam = ReactiveCommand.Create(() =>  {
                 FigureListIndex = -1;
                 if (Content is MenuLineViewModel newObject)
                 {
@@ -45,6 +45,10 @@ namespace GraphicsEditor.ViewModels
                     newObject.EndPoint = "";
                     newObject.StrokeNum = 0;
                     newObject.ThicknessLine = 1;
+                    newObject.Rotate = "";
+                    newObject.Scale = "";
+                    newObject.Skew = "";
+                    newObject.Center = "";
                 }
                 if (Content is MenuPolylineViewModel polyline)
                 {
@@ -52,14 +56,22 @@ namespace GraphicsEditor.ViewModels
                     polyline.Points = "";
                     polyline.StrokeNum = 0;
                     polyline.ThicknessLine = 1;
+                    polyline.Rotate = "";
+                    polyline.Scale = "";
+                    polyline.Skew = "";
+                    polyline.Center = "";
                 }
-                if (Content is MenuPolygonViewModel polygon)
+                if (Content is MenuPolygonViewModel polygon) 
                 {
                     polygon.Name = "";
                     polygon.Points = "";
                     polygon.StrokeNum = 0;
                     polygon.FillNum = 0;
                     polygon.ThicknessLine = 1;
+                    polygon.Rotate = "";
+                    polygon.Scale = "";
+                    polygon.Skew = "";
+                    polygon.Center = "";
                 }
                 if (Content is MenuRectangleViewModel rectangle)
                 {
@@ -70,6 +82,10 @@ namespace GraphicsEditor.ViewModels
                     rectangle.FillNum = 0;
                     rectangle.StrokeNum = 0;
                     rectangle.ThicknessLine = 1;
+                    rectangle.Rotate = "";
+                    rectangle.Scale = "";
+                    rectangle.Skew = "";
+                    rectangle.Center = "";
                 }
                 if (Content is MenuEllipseViewModel ellipse)
                 {
@@ -80,6 +96,10 @@ namespace GraphicsEditor.ViewModels
                     ellipse.FillNum = 0;
                     ellipse.StrokeNum = 0;
                     ellipse.ThicknessLine = 1;
+                    ellipse.Rotate = "";
+                    ellipse.Scale = "";
+                    ellipse.Skew = "";
+                    ellipse.Center = "";
                 }
                 if (Content is MenuPathViewModel path)
                 {
@@ -88,6 +108,10 @@ namespace GraphicsEditor.ViewModels
                     path.StrokeNum = 0;
                     path.FillNum = 0;
                     path.ThicknessLine = 1;
+                    path.Rotate = "";
+                    path.Scale = "";
+                    path.Skew = "";
+                    path.Center = "";
                 }
                 FigureIndex = figureIndex;
             });
@@ -96,24 +120,24 @@ namespace GraphicsEditor.ViewModels
                 if (Content is MenuLineViewModel newObject)
                 {
                     if (newObject.Name == "" || newObject.EndPoint == "" || newObject.StartPoint == "") return;
-                    curFigure = new LineElement { Name = newObject.Name, EndPoint = newObject.EndPoint, StartPoint = newObject.StartPoint, StrokeColor = newObject.Colors[newObject.StrokeNum].ToString(), StrokeThickness = newObject.ThicknessLine };
+                    curFigure = new LineElement { Name = newObject.Name, EndPoint = newObject.EndPoint, StartPoint = newObject.StartPoint, StrokeColor = newObject.Colors[newObject.StrokeNum].ToString(), StrokeThickness = newObject.ThicknessLine, Center = newObject.Center, Rotate = newObject.Rotate, Scale = newObject.Scale, Skew = newObject.Skew };
                 }
                 if (Content is MenuPolylineViewModel newObjectPolyline)
                 {
                     if (newObjectPolyline.Name == "" || newObjectPolyline.Points == "") return;
-                    curFigure = new BrokenLine { Name = newObjectPolyline.Name, Points = newObjectPolyline.Points, StrokeColor = newObjectPolyline.Colors[newObjectPolyline.StrokeNum].ToString(), StrokeThickness = newObjectPolyline.ThicknessLine };
+                    curFigure = new BrokenLine { Name = newObjectPolyline.Name, Points = newObjectPolyline.Points, StrokeColor = newObjectPolyline.Colors[newObjectPolyline.StrokeNum].ToString(), StrokeThickness = newObjectPolyline.ThicknessLine, Center = newObjectPolyline.Center, Rotate = newObjectPolyline.Rotate, Scale = newObjectPolyline.Scale, Skew = newObjectPolyline.Skew };
                 }
                 if (Content is MenuPolygonViewModel newObjectPolygon)
                 {
                     if (newObjectPolygon.Name == "" || newObjectPolygon.Points == "") return;
-                    curFigure = new PolygonElement { Name = newObjectPolygon.Name, Points = newObjectPolygon.Points, StrokeColor = newObjectPolygon.Colors[newObjectPolygon.StrokeNum].ToString(), FillColor = newObjectPolygon.Colors[newObjectPolygon.FillNum].ToString(), StrokeThickness = newObjectPolygon.ThicknessLine };
+                    curFigure = new PolygonElement { Name = newObjectPolygon.Name, Points = newObjectPolygon.Points, StrokeColor = newObjectPolygon.Colors[newObjectPolygon.StrokeNum].ToString(), FillColor = newObjectPolygon.Colors[newObjectPolygon.FillNum].ToString(), StrokeThickness = newObjectPolygon.ThicknessLine, Center = newObjectPolygon.Center, Rotate = newObjectPolygon.Rotate, Scale = newObjectPolygon.Scale, Skew = newObjectPolygon.Skew };
                 }
                 if (Content is MenuRectangleViewModel newObjectRectangle)
                 {
                     if (newObjectRectangle.Name == "" || newObjectRectangle.StartPoint == "" || newObjectRectangle.Width == "" || newObjectRectangle.Height == "") return;
                     if (double.TryParse(newObjectRectangle.Width, out _) == false)
                     {
-                        ClearParam.Execute().Subscribe();
+                        ClearParam.Execute().Subscribe(); 
                         return;
                     }
                     if (double.TryParse(newObjectRectangle.Height, out _) == false)
@@ -121,7 +145,7 @@ namespace GraphicsEditor.ViewModels
                         ClearParam.Execute().Subscribe();
                         return;
                     }
-                    curFigure = new RectangleElement { Name = newObjectRectangle.Name, StartPoint = newObjectRectangle.StartPoint, Width = double.Parse(newObjectRectangle.Width), Height = double.Parse(newObjectRectangle.Height), StrokeColor = newObjectRectangle.Colors[newObjectRectangle.StrokeNum].ToString(), FillColor = newObjectRectangle.Colors[newObjectRectangle.FillNum].ToString(), StrokeThickness = newObjectRectangle.ThicknessLine };
+                    curFigure = new RectangleElement { Name = newObjectRectangle.Name, StartPoint = newObjectRectangle.StartPoint, Width = double.Parse(newObjectRectangle.Width), Height = double.Parse(newObjectRectangle.Height), StrokeColor = newObjectRectangle.Colors[newObjectRectangle.StrokeNum].ToString(), FillColor = newObjectRectangle.Colors[newObjectRectangle.FillNum].ToString(), StrokeThickness = newObjectRectangle.ThicknessLine, Center = newObjectRectangle.Center, Rotate = newObjectRectangle.Rotate, Scale = newObjectRectangle.Scale, Skew = newObjectRectangle.Skew };
                 }
                 if (Content is MenuEllipseViewModel newObjectEllipse)
                 {
@@ -136,12 +160,12 @@ namespace GraphicsEditor.ViewModels
                         ClearParam.Execute().Subscribe();
                         return;
                     }
-                    curFigure = new EllipseElement { Name = newObjectEllipse.Name, StartPoint = newObjectEllipse.StartPoint, Width = double.Parse(newObjectEllipse.Width), Height = double.Parse(newObjectEllipse.Height), StrokeColor = newObjectEllipse.Colors[newObjectEllipse.StrokeNum].ToString(), FillColor = newObjectEllipse.Colors[newObjectEllipse.FillNum].ToString(), StrokeThickness = newObjectEllipse.ThicknessLine };
+                    curFigure = new EllipseElement { Name = newObjectEllipse.Name, StartPoint = newObjectEllipse.StartPoint, Width = double.Parse(newObjectEllipse.Width), Height = double.Parse(newObjectEllipse.Height), StrokeColor = newObjectEllipse.Colors[newObjectEllipse.StrokeNum].ToString(), FillColor = newObjectEllipse.Colors[newObjectEllipse.FillNum].ToString(), StrokeThickness = newObjectEllipse.ThicknessLine, Center = newObjectEllipse.Center, Rotate = newObjectEllipse.Rotate, Scale = newObjectEllipse.Scale, Skew = newObjectEllipse.Skew };
                 }
                 if (Content is MenuPathViewModel newObjectPath)
                 {
                     if (newObjectPath.Name == "" || newObjectPath.Commands == "") return;
-                    curFigure = new CompFig { Name = newObjectPath.Name, Commands = newObjectPath.Commands, StrokeColor = newObjectPath.Colors[newObjectPath.StrokeNum].ToString(), FillColor = newObjectPath.Colors[newObjectPath.FillNum].ToString(), StrokeThickness = newObjectPath.ThicknessLine };
+                    curFigure = new CompFig { Name = newObjectPath.Name, Commands = newObjectPath.Commands, StrokeColor = newObjectPath.Colors[newObjectPath.StrokeNum].ToString(), FillColor = newObjectPath.Colors[newObjectPath.FillNum].ToString(), StrokeThickness = newObjectPath.ThicknessLine, Center = newObjectPath.Center, Rotate = newObjectPath.Rotate, Scale = newObjectPath.Scale, Skew = newObjectPath.Skew };
                 }
                 AddShape(curFigure);
                 ClearParam.Execute().Subscribe();
@@ -158,7 +182,8 @@ namespace GraphicsEditor.ViewModels
                     StartPoint = Converters.StringToPoint(line.StartPoint),
                     EndPoint = Converters.StringToPoint(line.EndPoint),
                     Stroke = Converters.StringToBrush(line.StrokeColor),
-                    StrokeThickness = line.StrokeThickness
+                    StrokeThickness = line.StrokeThickness,
+                    RenderTransform = Converters.MakeTransform(line)
                 };
             }
             if (obj is BrokenLine polyline)
@@ -168,7 +193,8 @@ namespace GraphicsEditor.ViewModels
                     Name = polyline.Name,
                     Points = Converters.StringToPoints(polyline.Points),
                     Stroke = Converters.StringToBrush(polyline.StrokeColor),
-                    StrokeThickness = polyline.StrokeThickness
+                    StrokeThickness = polyline.StrokeThickness,
+                    RenderTransform = Converters.MakeTransform(polyline)
                 };
             }
             if (obj is PolygonElement polygon)
@@ -179,7 +205,8 @@ namespace GraphicsEditor.ViewModels
                     Points = Converters.StringToPoints(polygon.Points),
                     Fill = Converters.StringToBrush(polygon.FillColor),
                     Stroke = Converters.StringToBrush(polygon.StrokeColor),
-                    StrokeThickness = polygon.StrokeThickness
+                    StrokeThickness = polygon.StrokeThickness,
+                    RenderTransform = Converters.MakeTransform(polygon)
                 };
             }
             if (obj is RectangleElement rectangle)
@@ -192,7 +219,8 @@ namespace GraphicsEditor.ViewModels
                     Height = rectangle.Height,
                     Fill = Converters.StringToBrush(rectangle.FillColor),
                     Stroke = Converters.StringToBrush(rectangle.StrokeColor),
-                    StrokeThickness = rectangle.StrokeThickness
+                    StrokeThickness = rectangle.StrokeThickness,
+                    RenderTransform = Converters.MakeTransform(rectangle)
                 };
             }
             if (obj is EllipseElement ellipse)
@@ -205,7 +233,9 @@ namespace GraphicsEditor.ViewModels
                     Height = ellipse.Height,
                     Fill = Converters.StringToBrush(ellipse.FillColor),
                     Stroke = Converters.StringToBrush(ellipse.StrokeColor),
-                    StrokeThickness = ellipse.StrokeThickness
+                    StrokeThickness = ellipse.StrokeThickness,
+                    RenderTransform = Converters.MakeTransform(ellipse)
+
                 };
             }
             if (obj is CompFig path)
@@ -216,12 +246,49 @@ namespace GraphicsEditor.ViewModels
                     Data = Geometry.Parse(path.Commands),
                     Fill = Converters.StringToBrush(path.FillColor),
                     Stroke = Converters.StringToBrush(path.StrokeColor),
-                    StrokeThickness = path.StrokeThickness
+                    StrokeThickness = path.StrokeThickness,
+                    RenderTransform = Converters.MakeTransform(path)
                 };
             }
             return null;
         }
-
+        private bool CheckTrans(Figures obj)
+        {
+            if (obj.Center != "")
+            {
+                string[] trans = obj.Center.Split(" ");
+                if (trans.Count() != 2) return false;
+                foreach (string el in trans)
+                {
+                    if (double.TryParse(el, out _) == false) return false;
+                }
+            }
+            if (obj.Rotate != "")
+            {
+                string[] trans = obj.Rotate.Split(" ");
+                if (trans.Count() != 1) return false;
+                if (double.TryParse(obj.Rotate, out _) == false) return false;
+            }
+            if (obj.Scale != "")
+            {
+                string[] trans = obj.Scale.Split(" ");
+                if (trans.Count() != 2) return false;
+                foreach (string el in trans)
+                {
+                    if (double.TryParse(el, out _) == false) return false;
+                }
+            }
+            if (obj.Skew != "")
+            {
+                string[] trans = obj.Skew.Split(" ");
+                if (trans.Count() != 2) return false;
+                foreach (string el in trans)
+                {
+                    if (double.TryParse(el, out _) == false) return false;
+                }
+            }
+            return true;
+        }
         private void AddShape(Figures obj)
         {
             if (obj is LineElement line)
@@ -229,6 +296,7 @@ namespace GraphicsEditor.ViewModels
                 if (line.Name == "") return;
                 string[] st = line.StartPoint.Split(",");
                 string[] en = line.EndPoint.Split(",");
+                if (CheckTrans(line) == false) return;
                 if (st.Count() != 2 || en.Count() != 2) return;
                 foreach (string el in st)
                 {
@@ -252,8 +320,9 @@ namespace GraphicsEditor.ViewModels
             if (obj is BrokenLine polyline)
             {
                 if (polyline.Name == "") return;
+                if (CheckTrans(polyline) == false) return;
                 string[] st = polyline.Points.Replace(",", " ").Split(" ");
-                if (st.Count() % 2 == 1 || st.Count() < 4) return;
+                if (st.Count()%2==1 || st.Count()<4) return;
                 foreach (string el in st)
                 {
                     if (double.TryParse(el, out _) == false) return;
@@ -272,6 +341,7 @@ namespace GraphicsEditor.ViewModels
             if (obj is PolygonElement polygon)
             {
                 if (polygon.Name == "") return;
+                if (CheckTrans(polygon) == false) return;
                 string[] st = polygon.Points.Replace(",", " ").Split(" ");
                 if (st.Count() % 2 == 1 || st.Count() < 6) return;
                 foreach (string el in st)
@@ -291,7 +361,8 @@ namespace GraphicsEditor.ViewModels
             }
             if (obj is RectangleElement rectangle)
             {
-                if (rectangle.Name == "" || rectangle.Width < 1 || rectangle.Height < 1) return;
+                if (rectangle.Name == "" || rectangle.Width<1 || rectangle.Height<1) return;
+                if (CheckTrans(rectangle) == false) return;
                 string[] st = rectangle.StartPoint.Split(",");
                 if (st.Count() != 2) return;
                 foreach (string el in st)
@@ -312,6 +383,7 @@ namespace GraphicsEditor.ViewModels
             if (obj is EllipseElement ellipse)
             {
                 if (ellipse.Name == "" || ellipse.Width < 1 || ellipse.Height < 1) return;
+                if (CheckTrans(ellipse) == false) return;
                 string[] st = ellipse.StartPoint.Split(",");
                 if (st.Count() != 2) return;
                 foreach (string el in st)
@@ -339,6 +411,7 @@ namespace GraphicsEditor.ViewModels
                 {
                     return;
                 }
+                if (CheckTrans(path) == false) return;
                 if (!(FigureList.Any(n => n.Name == path.Name)))
                 {
                     FigureList.Add(path);
@@ -361,8 +434,7 @@ namespace GraphicsEditor.ViewModels
         public int FigureIndex
         {
             get => figureIndex;
-            set
-            {
+            set {
                 this.RaiseAndSetIfChanged(ref figureIndex, value);
                 Content = figureViews[figureIndex];
                 if (replace == true) FigureListIndex = -1;
@@ -371,7 +443,7 @@ namespace GraphicsEditor.ViewModels
         public int FigureListIndex
         {
             get => figureListIndex;
-            set
+            set 
             {
                 replace = false;
                 this.RaiseAndSetIfChanged(ref figureListIndex, value);
@@ -388,6 +460,10 @@ namespace GraphicsEditor.ViewModels
                             cont.EndPoint = line.EndPoint;
                             cont.SetIndexOfColor(Converters.StringToBrush(line.StrokeColor));
                             cont.ThicknessLine = line.StrokeThickness;
+                            cont.Center = line.Center;
+                            cont.Rotate = line.Rotate;
+                            cont.Scale = line.Scale;
+                            cont.Skew = line.Skew;
                         }
                     }
                     if (FigureList[figureListIndex] is BrokenLine polyline)
@@ -400,6 +476,10 @@ namespace GraphicsEditor.ViewModels
                             cont.Points = polyline.Points;
                             cont.SetIndexOfColor(Converters.StringToBrush(polyline.StrokeColor));
                             cont.ThicknessLine = polyline.StrokeThickness;
+                            cont.Center = polyline.Center;
+                            cont.Rotate = polyline.Rotate;
+                            cont.Scale = polyline.Scale;
+                            cont.Skew = polyline.Skew;
                         }
                     }
                     if (FigureList[figureListIndex] is PolygonElement polygon)
@@ -411,8 +491,12 @@ namespace GraphicsEditor.ViewModels
                             cont.Name = polygon.Name;
                             cont.Points = polygon.Points;
                             cont.SetIndexOfColor(Converters.StringToBrush(polygon.StrokeColor));
-                            cont.SetIndexOfColorFill(Converters.StringToBrush(polygon.FillColor));
+                            cont.SetIndexOfColorFill (Converters.StringToBrush(polygon.FillColor));
                             cont.ThicknessLine = polygon.StrokeThickness;
+                            cont.Center = polygon.Center;
+                            cont.Rotate = polygon.Rotate;
+                            cont.Scale = polygon.Scale;
+                            cont.Skew = polygon.Skew;
                         }
                     }
                     if (FigureList[figureListIndex] is RectangleElement rectangle)
@@ -428,6 +512,10 @@ namespace GraphicsEditor.ViewModels
                             cont.SetIndexOfColor(Converters.StringToBrush(rectangle.StrokeColor));
                             cont.SetIndexOfColorFill(Converters.StringToBrush(rectangle.FillColor));
                             cont.ThicknessLine = rectangle.StrokeThickness;
+                            cont.Center = rectangle.Center;
+                            cont.Rotate = rectangle.Rotate;
+                            cont.Scale = rectangle.Scale;
+                            cont.Skew = rectangle.Skew;
                         }
                     }
                     if (FigureList[figureListIndex] is EllipseElement ellipse)
@@ -443,6 +531,10 @@ namespace GraphicsEditor.ViewModels
                             cont.SetIndexOfColor(Converters.StringToBrush(ellipse.StrokeColor));
                             cont.SetIndexOfColorFill(Converters.StringToBrush(ellipse.FillColor));
                             cont.ThicknessLine = ellipse.StrokeThickness;
+                            cont.Center = ellipse.Center;
+                            cont.Rotate = ellipse.Rotate;
+                            cont.Scale = ellipse.Scale;
+                            cont.Skew = ellipse.Skew;
                         }
                     }
                     if (FigureList[figureListIndex] is CompFig path)
@@ -456,6 +548,10 @@ namespace GraphicsEditor.ViewModels
                             cont.SetIndexOfColor(Converters.StringToBrush(path.StrokeColor));
                             cont.SetIndexOfColorFill(Converters.StringToBrush(path.FillColor));
                             cont.ThicknessLine = path.StrokeThickness;
+                            cont.Center = path.Center;
+                            cont.Rotate = path.Rotate;
+                            cont.Scale = path.Scale;
+                            cont.Skew = path.Skew;
                         }
                     }
                 }

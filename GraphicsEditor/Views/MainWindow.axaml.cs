@@ -8,8 +8,6 @@ using Avalonia.VisualTree;
 using DynamicData;
 using GraphicsEditor.Models;
 using GraphicsEditor.ViewModels;
-using GraphicsEditor.Models;
-using GraphicsEditor.ViewModels;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Drawing.Drawing2D;

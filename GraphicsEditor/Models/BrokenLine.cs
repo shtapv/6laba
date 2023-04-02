@@ -8,25 +8,8 @@ namespace GraphicsEditor.Models
 {
     public class BrokenLine : Figures
     {
-        private string points;
-        private string strokeColor;
-        private double strokeThickness;
-
-
-        public string Points
-        {
-            get => points;
-            set => points = value;
-        }
-        public string StrokeColor
-        {
-            get => strokeColor;
-            set => strokeColor = value;
-        }
-        public double StrokeThickness
-        {
-            get => strokeThickness;
-            set => strokeThickness = value;
-        }
+        public string Points { get; set; }
+        public string StrokeColor { get; set; }
+        public double StrokeThickness { get; set; }
     }
 }

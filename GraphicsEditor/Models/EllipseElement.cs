@@ -8,42 +8,11 @@ namespace GraphicsEditor.Models
 {
     public class EllipseElement : Figures
     {
-        private string startPoint;
-        private double width;
-        private double height;
-        private string strokeColor;
-        private double strokeThickness;
-        private string fillColor;
-
-        public string StartPoint
-        {
-            get => startPoint;
-            set => startPoint = value;
-        }
-        public string StrokeColor
-        {
-            get => strokeColor;
-            set => strokeColor = value;
-        }
-        public double StrokeThickness
-        {
-            get => strokeThickness;
-            set => strokeThickness = value;
-        }
-        public string FillColor
-        {
-            get => fillColor;
-            set => fillColor = value;
-        }
-        public double Width
-        {
-            get => width;
-            set => width = value;
-        }
-        public double Height
-        {
-            get => height;
-            set => height = value;
-        }
+        public string StartPoint { get; set; }
+        public double Width { get; set; }
+        public double Height { get; set; }
+        public string StrokeColor { get; set; }
+        public double StrokeThickness { get; set; }
+        public string FillColor { get; set; }
     }
 }

@@ -16,5 +16,9 @@ namespace GraphicsEditor.Models
     public class Figures
     {
         public string Name { get; set; }
+        public string Rotate { get; set; }
+        public string Scale { get; set; }
+        public string Skew { get; set; }
+        public string Center { get; set; }
     }
 }

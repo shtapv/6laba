@@ -11,6 +11,10 @@
 			<RowDefinition Height="50"></RowDefinition>
 			<RowDefinition Height="30"></RowDefinition>
 			<RowDefinition Height="50"></RowDefinition>
+			<RowDefinition Height="30"></RowDefinition>
+			<RowDefinition Height="30"></RowDefinition>
+			<RowDefinition Height="30"></RowDefinition>
+			<RowDefinition Height="30"></RowDefinition>
 		</Grid.RowDefinitions>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="*"></ColumnDefinition>
@@ -38,5 +42,13 @@
 				</DataTemplate>
 			</ComboBox.ItemTemplate>
 		</ComboBox>
+		<TextBlock Grid.Row="5" Grid.Column="0" VerticalAlignment ="Center" Margin="10" Text="Центр поворота:"/>
+		<TextBox Name="textBoxRotateCenter" Grid.Row="5" Grid.Column="1" VerticalAlignment ="Center" Margin="10" Text="{Binding Center}"/>
+		<TextBlock Grid.Row="6" Grid.Column="0" VerticalAlignment ="Center" Margin="10" Text="Угол поворота:"/>
+		<TextBox Name="textBoxRenderTransformAngle" Grid.Row="6" Grid.Column="1" VerticalAlignment ="Center" Margin="10" Text="{Binding Rotate}"/>
+		<TextBlock Grid.Row="7" Grid.Column="0" VerticalAlignment ="Center" Margin="10" Text="Масштабирование:"/>
+		<TextBox Name="textBoxScaleTransform" Grid.Row="7" Grid.Column="1" VerticalAlignment ="Center" Margin="10" Text="{Binding Scale}"/>
+		<TextBlock Grid.Row="8" Grid.Column="0" VerticalAlignment ="Center" Margin="10" Text="Наклон:"/>
+		<TextBox Name="textBoxSkewTransform" Grid.Row="8" Grid.Column="1" VerticalAlignment ="Center" Margin="10" Text="{Binding Skew}"/>
 	</Grid>
 </UserControl>

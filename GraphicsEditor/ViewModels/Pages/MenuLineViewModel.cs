@@ -21,6 +21,10 @@ namespace GraphicsEditor.ViewModels.Pages
         private int strokeNum;
         private ObservableCollection<SolidColorBrush> colors;
         private double thicknessLine;
+        private string rotate = "";
+        private string scale = "";
+        private string skew= "";
+        private string center = "";
 
         public MenuLineViewModel()
         {
@@ -40,17 +44,14 @@ namespace GraphicsEditor.ViewModels.Pages
 
         public void SetIndexOfColor(SolidColorBrush color)
         {
-            for(int i = 0; i < Colors.Count; i++)
-            {
-                if (Colors[i].Color == color.Color) { StrokeNum = i; break; }
-            }
+            StrokeNum = Colors.IndexOf(color);
+
         }
+
         public string StartPoint
         {
             get => startPoint;
-            set {
-                this.RaiseAndSetIfChanged(ref startPoint, value);
-            }
+            set => this.RaiseAndSetIfChanged(ref startPoint, value);
         }
 
         public string EndPoint
@@ -73,11 +74,30 @@ namespace GraphicsEditor.ViewModels.Pages
             get => strokeNum;
             set => this.RaiseAndSetIfChanged(ref strokeNum, value);
         }
-
         public ObservableCollection<SolidColorBrush> Colors
         {
             get => colors;
             set => this.RaiseAndSetIfChanged(ref colors, value);
+        }
+        public string Rotate
+        {
+            get => rotate;
+            set => this.RaiseAndSetIfChanged(ref rotate, value);
+        }
+        public string Scale
+        {
+            get => scale;
+            set => this.RaiseAndSetIfChanged(ref scale, value);
+        }
+        public string Skew
+        {
+            get => skew;
+            set => this.RaiseAndSetIfChanged(ref skew, value);
+        }
+        public string Center
+        {
+            get => center;
+            set => this.RaiseAndSetIfChanged(ref center, value);
         }
     }
 }

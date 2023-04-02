@@ -8,30 +8,9 @@ namespace GraphicsEditor.Models
 {
     public class CompFig : Figures
     {
-        private string commands;
-        private string strokeColor;
-        private double strokeThickness;
-        private string fillColor;
-
-        public string Commands
-        {
-            get => commands;
-            set => commands = value;
-        }
-        public string StrokeColor
-        {
-            get => strokeColor;
-            set => strokeColor = value;
-        }
-        public double StrokeThickness
-        {
-            get => strokeThickness;
-            set => strokeThickness = value;
-        }
-        public string FillColor
-        {
-            get => fillColor;
-            set => fillColor = value;
-        }
+        public string Commands { get; set; }
+        public string StrokeColor { get; set; }
+        public double StrokeThickness { get; set; }
+        public string FillColor { get; set; }
     }
 }
